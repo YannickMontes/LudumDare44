@@ -111,6 +111,8 @@ MonoBehaviour:
   m_speed: 10
   m_invincibleTime: 1
   m_spriteRenderer: {fileID: 3262108182675088799}
+  m_survivabilityPowerUpConfig: {fileID: 11400000, guid: 2953a85c85d855e4e863b924c4fe0958,
+    type: 2}
 --- !u!114 &3083943619548628669
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -125,7 +127,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_shotTypeConfig: {fileID: 11400000, guid: 98ffcfdeaec4396419b3d1a35aee6c80, type: 2}
   m_rateOfFireConfig: {fileID: 11400000, guid: ba84c7f60320b0f488adc24d12f987a2, type: 2}
-  m_projectile: {fileID: 4058395051161518469, guid: 6d98c0c23c6f9bd44ba740853eea8b7f,
+  m_projectile: {fileID: 4058395051161518469, guid: 8778a139f78b59a4bb5cc03cdecbcee2,
     type: 3}
   m_emmiterParent: {fileID: 4063672057111087783}
   m_defaultEmmiter: {fileID: 2853084750837173681}

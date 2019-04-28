@@ -56,8 +56,11 @@ public class Character : MonoBehaviour
 
 	private void OnCollisionStay2D(Collision2D collision)
 	{
-		if (m_elapsedTimeSinceLastHit >= m_invincibleTime)
-			TakeDamage(collision.gameObject.GetComponent<Enemy>().ContactDamage);
+		if (collision.collider.tag == "Enemy")
+		{
+			if (m_elapsedTimeSinceLastHit >= m_invincibleTime)
+				TakeDamage(collision.gameObject.GetComponent<Enemy>().ContactDamage);
+		}
 	}
 
 	private void UpdateCurrentTile()

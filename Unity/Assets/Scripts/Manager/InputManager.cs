@@ -52,7 +52,19 @@ public class InputManager : MonoBehaviour
 		}
 	}
 
-	public bool Enable { get; set; }
+	public bool Enable
+	{
+		get
+		{
+			return m_enable;
+		}
+		set
+		{
+			Axis = Vector2.zero;
+			RawAxis = Vector2.zero;
+			m_enable = value;
+		}
+	}
 
 	#region Private
 
@@ -118,6 +130,7 @@ public class InputManager : MonoBehaviour
 
 	private OnJumpInputPressed m_jumpInputListeners = null;
 	private OnShootPressed m_onShootPressed = null;
+	private bool m_enable = false;
 
 	#endregion Private
 }

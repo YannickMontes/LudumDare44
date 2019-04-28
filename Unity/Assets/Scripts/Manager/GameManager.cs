@@ -33,8 +33,7 @@ public class GameManager : MonoBehaviour
 	{
 		m_decreaseTimer = false;
 		InputManager.Instance.Enable = false;
-		EndScreenUI endScreen = FindObjectOfType<EndScreenUI>();//Tres sale.
-		endScreen.InitUI(Character.Instance);
+		UIManager.Instance.EndScreen.InitUI(Character.Instance);
 		DisableEnemies();
 	}
 
@@ -94,8 +93,7 @@ public class GameManager : MonoBehaviour
 	{
 		InputManager.Instance.Enable = false;
 		DisableEnemies();
-		GameOverUI gameOver = FindObjectOfType<GameOverUI>();//Tres sale.
-		gameOver.gameObject.SetActive(true);
+		UIManager.Instance.GameOver.gameObject.SetActive(true);
 	}
 
 	private void DisableEnemies()
