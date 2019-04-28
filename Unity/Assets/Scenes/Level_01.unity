@@ -406,7 +406,7 @@ TilemapRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
-  m_ChunkCullingBounds: {x: 0.022448957, y: 0.022448957, z: 0}
+  m_ChunkCullingBounds: {x: 0.005928874, y: 0.005928874, z: 0}
   m_MaxChunkCount: 16
   m_MaxFrameAge: 16
   m_SortOrder: 0
@@ -65017,7 +65017,7 @@ TilemapRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
-  m_ChunkCullingBounds: {x: 0.022448957, y: 0.022448957, z: 0}
+  m_ChunkCullingBounds: {x: 0.005928874, y: 0.005928874, z: 0}
   m_MaxChunkCount: 16
   m_MaxFrameAge: 16
   m_SortOrder: 0
@@ -66909,7 +66909,7 @@ Grid:
   m_GameObject: {fileID: 430094682}
   m_Enabled: 1
   m_CellSize: {x: 1, y: 1, z: 0}
-  m_CellGap: {x: 0, y: 0, z: 0}
+  m_CellGap: {x: -0.01, y: -0.01, z: -0}
   m_CellLayout: 0
   m_CellSwizzle: 0
 --- !u!4 &430094684
@@ -67080,7 +67080,7 @@ TilemapRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_ChunkSize: {x: 32, y: 32, z: 32}
-  m_ChunkCullingBounds: {x: 0.022448957, y: 0.022448957, z: 0}
+  m_ChunkCullingBounds: {x: 0.005928874, y: 0.005928874, z: 0}
   m_MaxChunkCount: 16
   m_MaxFrameAge: 16
   m_SortOrder: 0
@@ -68266,7 +68266,7 @@ TilemapRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
-  m_ChunkCullingBounds: {x: 0.022448957, y: 0.022448957, z: 0}
+  m_ChunkCullingBounds: {x: 0.005928874, y: 0.005928874, z: 0}
   m_MaxChunkCount: 16
   m_MaxFrameAge: 16
   m_SortOrder: 0
