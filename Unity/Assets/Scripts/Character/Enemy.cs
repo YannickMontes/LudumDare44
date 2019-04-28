@@ -12,6 +12,13 @@ public class Enemy : MonoBehaviour
 			Destroy(gameObject);
 	}
 
+	public void StopFollowingPlayer()
+	{
+		m_spotPlayer = false;
+		m_currentTarget = -1;
+		UnregisterPlayerMovement();
+	}
+
 	#region Private
 
 	private void Awake()
@@ -28,6 +35,11 @@ public class Enemy : MonoBehaviour
 	}
 
 	private void OnDestroy()
+	{
+		UnregisterPlayerMovement();
+	}
+
+	private void UnregisterPlayerMovement()
 	{
 		if (m_characterToFllow != null)
 			m_characterToFllow.RegisterOnTileChange(OnCharacterTileChanged, false);

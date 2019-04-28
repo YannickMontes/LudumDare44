@@ -5,6 +5,8 @@ public class Character : MonoBehaviour
 {
 	public delegate void OnTileChanged(Vector3Int oldTile, Vector3Int newTile);
 
+	public static Character Instance { get; private set; }
+
 	public ShootManager ShootManager { get { return m_shootManager; } }
 
 	public SurvivabilityPowerUpConfig SurvivabilityPowerUp { get { return m_survivabilityPowerUpConfig; } set { m_survivabilityPowerUpConfig = value; } }
@@ -23,6 +25,15 @@ public class Character : MonoBehaviour
 	{
 		m_shootManager = GetComponent<ShootManager>();
 		UpdateCurrentTile();
+		if (Instance == null)
+		{
+			Instance = this;
+			DontDestroyOnLoad(this);
+		}
+		else
+		{
+			Destroy(gameObject);
+		}
 	}
 
 	private void FixedUpdate()

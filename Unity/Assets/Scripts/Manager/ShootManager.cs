@@ -4,6 +4,7 @@ using UnityEngine;
 public class ShootManager : MonoBehaviour
 {
 	public ShootTypePowerUpConfig ShotTypeConfig { get { return m_shotTypeConfig; } }
+	public RateOfFirePowerUpConfig RateOfFireConfig { get { return m_rateOfFireConfig; } }
 
 	public void AssignShootTypePowerUp(ShootTypePowerUpConfig shootTypeConfig)
 	{
@@ -118,6 +119,7 @@ public class ShootManager : MonoBehaviour
 		}
 	}
 
+	[Header("Shot Config")]
 	[SerializeField]
 	private ShootTypePowerUpConfig m_shotTypeConfig = null;
 	[SerializeField]
