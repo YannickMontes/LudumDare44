@@ -5,6 +5,8 @@ public class ShootManager : MonoBehaviour
 {
 	public ShootTypePowerUpConfig ShotTypeConfig { get { return m_shotTypeConfig; } }
 	public RateOfFirePowerUpConfig RateOfFireConfig { get { return m_rateOfFireConfig; } }
+	public bool IsShooting { get { return m_isShooting; } }
+	public Vector2 ShotDirection { get { return m_shotDirection; } }
 
 	public void AssignShootTypePowerUp(ShootTypePowerUpConfig shootTypeConfig)
 	{
@@ -44,6 +46,8 @@ public class ShootManager : MonoBehaviour
 	{
 		m_isShooting = shotPressed;
 		Shoot();
+		if (!shotPressed)
+			m_shotDirection = Vector2.zero;
 	}
 
 	private void Shoot()
@@ -54,8 +58,9 @@ public class ShootManager : MonoBehaviour
 			{
 				Vector3 worldPoint = Camera.main.ScreenToWorldPoint(InputManager.Instance.MousePosition);
 				worldPoint.z = 0.0f;
-				Vector3 direction = worldPoint - transform.position;
-				LaunchProjectiles(ConvertToClosestCardinalDirection(direction));
+				m_shotDirection = worldPoint - transform.position;
+				m_shotDirection = ConvertToClosestCardinalDirection(m_shotDirection);
+				LaunchProjectiles(m_shotDirection);
 				m_lastShotElapsedTime = 0.0f;
 			}
 		}
@@ -138,6 +143,7 @@ public class ShootManager : MonoBehaviour
 	private Character m_character = null;
 	private float m_lastShotElapsedTime = float.MaxValue;
 	private bool m_isShooting = false;
+	private Vector2 m_shotDirection = Vector2.zero;
 
 	#endregion Private
 }

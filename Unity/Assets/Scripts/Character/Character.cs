@@ -36,10 +36,14 @@ public class Character : MonoBehaviour
 		}
 	}
 
+	private void Update()
+	{
+		HandleDirectionAnimator();
+		HandleShootDirectionAnimator();
+	}
+
 	private void FixedUpdate()
 	{
-		//	Vector2 input = new Vector3(Mathf.Abs(InputManager.Instance.Axis.x) < 0.5f ? InputManager.Instance.Axis.x / 2 : InputManager.Instance.Axis.x
-		//		, Mathf.Abs(InputManager.Instance.Axis.y) < 0.5f ? InputManager.Instance.Axis.y / 2.0f : InputManager.Instance.Axis.y);
 		transform.Translate(InputManager.Instance.Axis * m_speed * Time.fixedDeltaTime);
 		UpdateCurrentTile();
 		m_elapsedTimeSinceLastHit += Time.fixedDeltaTime;
@@ -75,6 +79,7 @@ public class Character : MonoBehaviour
 
 	private void TakeDamage(float value)
 	{
+		m_animator.SetBool("IsHurt", true);
 		GameManager.Instance.DecreaseTime(value);
 		m_elapsedTimeSinceLastHit = 0.0f;
 		StartCoroutine(FlickSprite());
@@ -92,6 +97,40 @@ public class Character : MonoBehaviour
 			yield return new WaitForSeconds(step);
 			current++;
 		}
+		m_animator.SetBool("IsHurt", false);
+	}
+
+	private void HandleDirectionAnimator()
+	{
+		int horizontalMove = 0;
+		int verticalMove = 0;
+		if (InputManager.Instance.Axis != Vector2.zero)
+		{
+			if (Mathf.Abs(InputManager.Instance.Axis.x) > Mathf.Abs(InputManager.Instance.Axis.y))
+			{
+				horizontalMove = InputManager.Instance.Axis.x > 0 ? 1 : -1;
+			}
+			else
+			{
+				verticalMove = InputManager.Instance.Axis.y > 0 ? 1 : -1;
+			}
+		}
+		m_animator.SetInteger("MoveHorizontal", horizontalMove);
+		m_animator.SetInteger("MoveVertical", verticalMove);
+	}
+
+	private void HandleShootDirectionAnimator()
+	{
+		int shotHorizontal = 0;
+		int shotVertical = 0;
+		if (ShootManager.IsShooting)
+		{
+			shotHorizontal = (int)Mathf.Clamp(ShootManager.ShotDirection.x, -1, 1);
+			shotVertical = (int)Mathf.Clamp(ShootManager.ShotDirection.y, -1, 1);
+		}
+		m_animator.SetBool("IsShooting", ShootManager.IsShooting);
+		m_animator.SetInteger("ShootHorizontal", shotHorizontal);
+		m_animator.SetInteger("ShootVertical", shotVertical);
 	}
 
 	[SerializeField]
@@ -102,6 +141,8 @@ public class Character : MonoBehaviour
 	private SpriteRenderer m_spriteRenderer = null;
 	[SerializeField]
 	private SurvivabilityPowerUpConfig m_survivabilityPowerUpConfig = null;
+	[SerializeField]
+	private Animator m_animator = null;
 
 	private ShootManager m_shootManager;
 	private float m_elapsedTimeSinceLastHit = 0.0f;
