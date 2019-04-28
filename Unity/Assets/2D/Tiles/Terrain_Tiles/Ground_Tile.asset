@@ -13,18 +13,18 @@ MonoBehaviour:
   m_Name: Ground_Tile
   m_EditorClassIdentifier: 
   m_Sprites:
-  - {fileID: 21300012, guid: cf826d752d6fe4d48be4b936b59da9b5, type: 3}
+  - {fileID: 21300034, guid: cf826d752d6fe4d48be4b936b59da9b5, type: 3}
   - {fileID: 0}
   - {fileID: 0}
-  - {fileID: 21300010, guid: cf826d752d6fe4d48be4b936b59da9b5, type: 3}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 21300016, guid: cf826d752d6fe4d48be4b936b59da9b5, type: 3}
+  - {fileID: 21300032, guid: cf826d752d6fe4d48be4b936b59da9b5, type: 3}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  - {fileID: 21300018, guid: cf826d752d6fe4d48be4b936b59da9b5, type: 3}
-  - {fileID: 21300012, guid: cf826d752d6fe4d48be4b936b59da9b5, type: 3}
+  - {fileID: 21300038, guid: cf826d752d6fe4d48be4b936b59da9b5, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 21300040, guid: cf826d752d6fe4d48be4b936b59da9b5, type: 3}
+  - {fileID: 21300004, guid: cf826d752d6fe4d48be4b936b59da9b5, type: 3}
