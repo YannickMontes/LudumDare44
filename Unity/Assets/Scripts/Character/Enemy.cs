@@ -29,12 +29,13 @@ public class Enemy : MonoBehaviour
 
 	private void OnDestroy()
 	{
-		m_characterToFllow.RegisterOnTileChange(OnCharacterTileChanged, false);
+		if (m_characterToFllow != null)
+			m_characterToFllow.RegisterOnTileChange(OnCharacterTileChanged, false);
 	}
 
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
-		if (collision.tag == "Player")
+		if (collision.tag == "Player" && !m_spotPlayer)
 		{
 			m_spotPlayer = true;
 			m_characterToFllow = collision.gameObject.GetComponent<Character>();

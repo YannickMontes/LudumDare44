@@ -53,6 +53,7 @@ public class GameManager : MonoBehaviour
 
 	private void GameOver()
 	{
+		m_timer = MAX_TIMER;
 		UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex);
 	}
 
