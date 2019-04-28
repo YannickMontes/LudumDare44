@@ -2,9 +2,8 @@
 
 public class Projectile : MonoBehaviour
 {
-	public void InitProjectile(float speed, float power)
+	public void InitProjectile(float power)
 	{
-		m_speed = speed;
 		m_power = power;
 	}
 
