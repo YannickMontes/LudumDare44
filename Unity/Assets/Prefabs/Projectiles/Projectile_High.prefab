@@ -480,8 +480,8 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 1.8
-      minScalar: 1.3
+      scalar: 1.2
+      minScalar: 1
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -856,7 +856,7 @@ ParticleSystem:
     serializedVersion: 6
     enabled: 1
     type: 4
-    angle: 22.487272
+    angle: 4.81
     length: 5
     boxThickness: {x: 0, y: 0, z: 0}
     radiusThickness: 1
