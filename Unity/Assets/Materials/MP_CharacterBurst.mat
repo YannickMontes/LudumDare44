@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: P_Burst 1
+  m_Name: MP_CharacterBurst
   m_Shader: {fileID: 4800000, guid: c9a97543de73762428d53f0947d3f055, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 0
@@ -59,6 +59,10 @@ Material:
         m_Texture: {fileID: 2800000, guid: e28dc97a9541e3642a48c0e3886688c5, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _TextureSample2:
+        m_Texture: {fileID: 2800000, guid: 726ccd717debb6343ad536b886023c3f, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _texcoord:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -70,6 +74,8 @@ Material:
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
+    - _Float0: -0.51
+    - _Float1: 8.46
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
@@ -84,6 +90,12 @@ Material:
     - _UVSec: 0
     - _ZWrite: 1
     - __dirty: 0
+    - _multiplynoise: 6.21
+    - _offset: 0
+    - _pwer: 10
+    - _tiling: 0.16
     m_Colors:
-    - _Color: {r: 5.2, g: 2.4, b: 8, a: 1}
+    - _Color: {r: 5.2070684, g: 2.4993927, b: 7.9564004, a: 1}
+    - _Color0: {r: 57.358597, g: 0.9009204, b: 13.213499, a: 1}
+    - _Color1: {r: 0.1591462, g: 0.1514774, b: 0.8679245, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
