@@ -3,9 +3,16 @@ using UnityEngine;
 
 public class ShootManager : MonoBehaviour
 {
+	public ShootTypePowerUpConfig ShotTypeConfig { get { return m_shotTypeConfig; } }
+
 	public void AssignShootTypePowerUp(ShootTypePowerUpConfig shootTypeConfig)
 	{
 		m_shotTypeConfig = shootTypeConfig;
+	}
+
+	public void AssignRateOfFirePowerUp(RateOfFirePowerUpConfig rateOfFireConfig)
+	{
+		m_rateOfFireConfig = rateOfFireConfig;
 	}
 
 	#region Private
@@ -17,24 +24,32 @@ public class ShootManager : MonoBehaviour
 
 	private void Start()
 	{
-		InputManager.Instance.RegisterOnShootInput(Shoot, true);
+		InputManager.Instance.RegisterOnShootInput(OnShootPressed, true);
 	}
 
 	private void Update()
 	{
+		if (m_isShooting)
+			Shoot();
 		m_lastShotElapsedTime += Time.deltaTime;
 	}
 
 	private void OnDestroy()
 	{
-		InputManager.Instance.RegisterOnShootInput(Shoot, false);
+		InputManager.Instance.RegisterOnShootInput(OnShootPressed, false);
 	}
 
-	public void Shoot(bool shotPressed)
+	private void OnShootPressed(bool shotPressed)
+	{
+		m_isShooting = shotPressed;
+		Shoot();
+	}
+
+	private void Shoot()
 	{
 		if (m_shotTypeConfig is ClassicShootPowerUpConfig)
 		{
-			if (shotPressed && m_lastShotElapsedTime >= m_cooldownShot)
+			if (m_isShooting && m_lastShotElapsedTime >= m_rateOfFireConfig.CooldownShot)
 			{
 				Vector3 worldPoint = Camera.main.ScreenToWorldPoint(InputManager.Instance.MousePosition);
 				worldPoint.z = 0.0f;
@@ -53,13 +68,13 @@ public class ShootManager : MonoBehaviour
 		switch (shotConfig.Emmiter)
 		{
 			case ShootTypePowerUpConfig.EmmiterType.SINGLE:
-				GameObject.Instantiate(m_projectile, m_defaultEmmiter.transform.position, m_defaultEmmiter.transform.rotation).GetComponent<Projectile>().InitProjectile(1.0f, shotConfig.ShootPower);
+				GameObject.Instantiate(m_projectile, m_defaultEmmiter.transform.position, m_defaultEmmiter.transform.rotation).GetComponent<Projectile>().InitProjectile(shotConfig.ShootPower);
 				break;
 
 			case ShootTypePowerUpConfig.EmmiterType.ALL:
 				foreach (GameObject emmiter in m_emmiters)
 				{
-					GameObject.Instantiate(m_projectile, emmiter.transform.position, emmiter.transform.rotation).GetComponent<Projectile>().InitProjectile(1.0f, shotConfig.ShootPower);
+					GameObject.Instantiate(m_projectile, emmiter.transform.position, emmiter.transform.rotation).GetComponent<Projectile>().InitProjectile(shotConfig.ShootPower);
 				}
 				break;
 		}
@@ -106,9 +121,9 @@ public class ShootManager : MonoBehaviour
 	[SerializeField]
 	private ShootTypePowerUpConfig m_shotTypeConfig = null;
 	[SerializeField]
-	private GameObject m_projectile = null;
+	private RateOfFirePowerUpConfig m_rateOfFireConfig = null;
 	[SerializeField]
-	private float m_cooldownShot = 0.5f;
+	private GameObject m_projectile = null;
 
 	[Header("Emmiters Config")]
 	[SerializeField]
@@ -120,6 +135,7 @@ public class ShootManager : MonoBehaviour
 
 	private Character m_character = null;
 	private float m_lastShotElapsedTime = float.MaxValue;
+	private bool m_isShooting = false;
 
 	#endregion Private
 }

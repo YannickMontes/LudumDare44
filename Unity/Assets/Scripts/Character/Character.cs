@@ -7,6 +7,8 @@ public class Character : MonoBehaviour
 
 	public ShootManager ShootManager { get { return m_shootManager; } }
 
+	public SurvivabilityPowerUpConfig SurvivabilityPowerUp { get { return m_survivabilityPowerUpConfig; } set { m_survivabilityPowerUpConfig = value; } }
+
 	public void RegisterOnTileChange(OnTileChanged method, bool register)
 	{
 		if (register)
@@ -84,6 +86,8 @@ public class Character : MonoBehaviour
 	private float m_invincibleTime = 0.5f;
 	[SerializeField]
 	private SpriteRenderer m_spriteRenderer = null;
+	[SerializeField]
+	private SurvivabilityPowerUpConfig m_survivabilityPowerUpConfig = null;
 
 	private ShootManager m_shootManager;
 	private float m_elapsedTimeSinceLastHit = 0.0f;
