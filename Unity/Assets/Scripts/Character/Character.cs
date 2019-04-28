@@ -25,6 +25,8 @@ public class Character : MonoBehaviour
 
 	private void FixedUpdate()
 	{
+		//	Vector2 input = new Vector3(Mathf.Abs(InputManager.Instance.Axis.x) < 0.5f ? InputManager.Instance.Axis.x / 2 : InputManager.Instance.Axis.x
+		//		, Mathf.Abs(InputManager.Instance.Axis.y) < 0.5f ? InputManager.Instance.Axis.y / 2.0f : InputManager.Instance.Axis.y);
 		transform.Translate(InputManager.Instance.Axis * m_speed * Time.fixedDeltaTime);
 		UpdateCurrentTile();
 		m_elapsedTimeSinceLastHit += Time.fixedDeltaTime;
@@ -41,7 +43,8 @@ public class Character : MonoBehaviour
 
 	private void OnCollisionStay2D(Collision2D collision)
 	{
-		//Take damage if player is not invicible anymore.
+		if (m_elapsedTimeSinceLastHit >= m_invincibleTime)
+			TakeDamage(collision.gameObject.GetComponent<Enemy>().ContactDamage);
 	}
 
 	private void UpdateCurrentTile()

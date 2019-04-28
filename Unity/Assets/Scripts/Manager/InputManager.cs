@@ -57,6 +57,10 @@ public class InputManager : MonoBehaviour
 	private void Update()
 	{
 		RawAxis = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+		if (RawAxis != Vector2.zero)
+			Debug.Log("Raw Axis " + RawAxis);
+		if (Axis != Vector2.zero)
+			Debug.Log("Axis " + Axis);
 		Axis = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
 		MousePosition = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
 		CheckJump();
