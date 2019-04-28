@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: MP_Fire
+  m_Name: MP_Trail
   m_Shader: {fileID: 4800000, guid: c9a97543de73762428d53f0947d3f055, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 0
@@ -70,7 +70,7 @@ Material:
     m_Floats:
     - _BumpScale: 1
     - _ColorBlend: 10
-    - _ColorPower: 5.58
+    - _ColorPower: 6
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
