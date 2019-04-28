@@ -2,6 +2,8 @@
 
 public abstract class ShootTypePowerUpConfig : PowerUpConfig
 {
+	public int ShootPower { get { return m_shootPower; } }
+
 	public enum EmmiterType
 	{
 		SINGLE,

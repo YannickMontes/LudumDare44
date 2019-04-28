@@ -2,28 +2,28 @@
 
 public class Projectile : MonoBehaviour
 {
-	public void InitProjectile(float speed, Vector3 direction)
+	public void InitProjectile(float speed, float power)
 	{
 		m_speed = speed;
-		m_direction = direction.normalized;
+		m_power = power;
 	}
 
 	#region Private
 
 	private void Start()
 	{
-		Destroy(this, 5.0f);
+		Destroy(gameObject, 5.0f);
 	}
 
 	private void FixedUpdate()
 	{
-		transform.Translate(m_direction * m_speed);
+		transform.Translate(Vector3.right * m_speed);
 	}
 
 	[SerializeField]
 	private float m_speed = 3.0f;
 
-	private Vector3 m_direction = Vector3.zero;
+	private float m_power = 0.0f;
 
 	#endregion Private
 }
