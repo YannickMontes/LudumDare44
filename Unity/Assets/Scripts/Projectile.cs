@@ -8,6 +8,14 @@ public class Projectile : MonoBehaviour
 		m_power = power;
 	}
 
+	private void OnTriggerEnter2D(Collider2D collision)
+	{
+		if (collision.tag == "Enemy" && !collision.isTrigger)
+		{
+			collision.GetComponent<Enemy>().TakeDamage(m_power);
+		}
+	}
+
 	#region Private
 
 	private void Start()

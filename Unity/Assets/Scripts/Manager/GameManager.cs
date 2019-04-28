@@ -16,6 +16,15 @@ public class GameManager : MonoBehaviour
 		}
 	}
 
+	public void DecreaseTime(float value)
+	{
+		m_timer -= value;
+		if (m_timer <= 0)
+		{
+			GameOver();
+		}
+	}
+
 	#region Private
 
 	private void Awake()
@@ -39,8 +48,12 @@ public class GameManager : MonoBehaviour
 
 	private void Update()
 	{
-		if (m_timer > 0.0f)
-			m_timer -= (MAX_TIMER / m_timeToFinishLevel) * Time.deltaTime;
+		DecreaseTime((MAX_TIMER / m_timeToFinishLevel) * Time.deltaTime);
+	}
+
+	private void GameOver()
+	{
+		UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex);
 	}
 
 	[SerializeField]
