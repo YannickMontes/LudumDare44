@@ -45,7 +45,7 @@ public class GameManager : MonoBehaviour
 
 	public void LoadNextLevel()
 	{
-		LoadLevel(SceneManager.GetActiveScene().buildIndex + 1);
+		LoadLevel(SceneManager.GetActiveScene().buildIndex);
 	}
 
 	#region Private
