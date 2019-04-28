@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: MP_Trail
+  m_Name: MP_Trail_Low
   m_Shader: {fileID: 4800000, guid: c9a97543de73762428d53f0947d3f055, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 0
@@ -69,8 +69,8 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - _BumpScale: 1
-    - _ColorBlend: 10
-    - _ColorPower: 6
+    - _ColorBlend: -0.77
+    - _ColorPower: 4.5
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
@@ -95,7 +95,7 @@ Material:
     - _pwer: 10
     - _tiling: 0.16
     m_Colors:
-    - _Color: {r: 39.764694, g: 0.5762999, b: 20.362597, a: 1}
+    - _Color: {r: 39.7647, g: 2.5644548, b: 0.6245753, a: 1}
     - _Color0: {r: 57.358597, g: 0.9009204, b: 13.213499, a: 1}
     - _Color1: {r: 0.1591462, g: 0.1514774, b: 0.8679245, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}

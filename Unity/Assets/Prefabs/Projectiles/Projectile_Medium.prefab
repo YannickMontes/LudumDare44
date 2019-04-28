@@ -18,7 +18,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4058395049286222278
 Transform:
   m_ObjectHideFlags: 0
@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 4058395049286222273}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_Children: []
   m_Father: {fileID: 4058395051161518475}
   m_RootOrder: 0
@@ -105,7 +105,7 @@ GameObject:
   - component: {fileID: 8104277584043455355}
   - component: {fileID: 85768939941637182}
   m_Layer: 0
-  m_Name: Projectile_Low02
+  m_Name: Projectile_Medium 1
   m_TagString: Projectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -174,7 +174,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 520118e0b854800408a1817b4342b6a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_speed: 3
+  m_speed: 0.7
 --- !u!50 &85768939941637182
 Rigidbody2D:
   serializedVersion: 4
@@ -236,7 +236,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4058395051162848297}
   serializedVersion: 6
-  lengthInSec: 5
+  lengthInSec: 1
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
@@ -364,7 +364,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 5
+      scalar: 0
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -1114,7 +1114,7 @@ ParticleSystem:
     rateOverDistance:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 5
+      scalar: 3
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -1510,15 +1510,15 @@ ParticleSystem:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
         key1: {r: 1, g: 1, b: 1, a: 0.7921569}
-        key2: {r: 0.764151, g: 0.010813415, b: 0.3351673, a: 0.25882354}
+        key2: {r: 0.24528301, g: 0, b: 0.104756325, a: 0.08235294}
         key3: {r: 1, g: 1, b: 1, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
         key5: {r: 0, g: 0, b: 0, a: 0}
         key6: {r: 0, g: 0, b: 0, a: 0}
         key7: {r: 0, g: 0, b: 0, a: 0}
         ctime0: 0
-        ctime1: 16577
-        ctime2: 35852
+        ctime1: 7903
+        ctime2: 21974
         ctime3: 65535
         ctime4: 0
         ctime5: 0
