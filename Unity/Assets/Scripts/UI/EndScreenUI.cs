@@ -1,13 +1,17 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class EndScreenUI : MonoBehaviour
 {
 	public void InitUI(Character character)
 	{
-		m_rateOfFireImage.sprite = m_rateOfFireProgression.GetNextPowerUp(character.ShootManager.RateOfFireConfig).Icon;
-		m_shotTypeImage.sprite = m_shotTypeProgression.GetNextPowerUp(character.ShootManager.ShotTypeConfig).Icon;
-		m_survavibilityImage.sprite = m_survavibilityProgression.GetNextPowerUp(character.SurvivabilityPowerUp).Icon;
+		m_nextRateOfFire = m_rateOfFireProgression.GetNextPowerUp(character.ShootManager.RateOfFireConfig) as RateOfFirePowerUpConfig;
+		m_rateOfFireImage.sprite = m_nextRateOfFire != null ? m_nextRateOfFire.Icon : null;
+		m_nextShootType = m_shotTypeProgression.GetNextPowerUp(character.ShootManager.ShotTypeConfig) as ShootTypePowerUpConfig;
+		m_shotTypeImage.sprite = m_nextShootType != null ? m_nextShootType.Icon : null;
+		m_nextSurvivability = m_survavibilityProgression.GetNextPowerUp(character.SurvivabilityPowerUp) as SurvivabilityPowerUpConfig;
+		m_survavibilityImage.sprite = m_nextSurvivability != null ? m_nextSurvivability.Icon : null;
 		gameObject.SetActive(true);
 	}
 
@@ -16,26 +20,31 @@ public class EndScreenUI : MonoBehaviour
 		switch (type)
 		{
 			case 1:
-				SurvivabilityPowerUpConfig survivability = m_survavibilityProgression.GetNextPowerUp(Character.Instance.SurvivabilityPowerUp) as SurvivabilityPowerUpConfig;
-				if (survivability != null)
-					Character.Instance.SurvivabilityPowerUp = survivability;
+				if (m_nextSurvivability != null)
+					Character.Instance.SurvivabilityPowerUp = m_nextSurvivability;
 				break;
 
 			case 2:
-				RateOfFirePowerUpConfig rateOfFire = m_rateOfFireProgression.GetNextPowerUp(Character.Instance.ShootManager.RateOfFireConfig) as RateOfFirePowerUpConfig;
-				Character.Instance.ShootManager.AssignRateOfFirePowerUp(rateOfFire);
+				if (m_nextRateOfFire != null)
+					Character.Instance.ShootManager.AssignRateOfFirePowerUp(m_nextRateOfFire);
 				break;
 
 			case 3:
-				ShootTypePowerUpConfig shoot = m_shotTypeProgression.GetNextPowerUp(Character.Instance.ShootManager.ShotTypeConfig) as ShootTypePowerUpConfig;
-				Character.Instance.ShootManager.AssignShootTypePowerUp(shoot);
+				if (m_nextShootType != null)
+					Character.Instance.ShootManager.AssignShootTypePowerUp(m_nextShootType);
 				break;
 		}
-
-		GameManager.Instance.LoadNextLevel();
+		StartCoroutine(DisableAndLoadNextLevel());
 	}
 
 	#region Private
+
+	private IEnumerator DisableAndLoadNextLevel()
+	{
+		GameManager.Instance.LoadNextLevel();
+		yield return null;
+		gameObject.SetActive(false);
+	}
 
 	[Header("Sprite Locations")]
 	[SerializeField]
@@ -52,6 +61,10 @@ public class EndScreenUI : MonoBehaviour
 	private PowerUpProgressionConfig m_survavibilityProgression = null;
 	[SerializeField]
 	private PowerUpProgressionConfig m_shotTypeProgression = null;
+
+	private SurvivabilityPowerUpConfig m_nextSurvivability = null;
+	private RateOfFirePowerUpConfig m_nextRateOfFire = null;
+	private ShootTypePowerUpConfig m_nextShootType = null;
 
 	#endregion Private
 }

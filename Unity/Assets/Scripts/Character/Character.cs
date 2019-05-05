@@ -19,6 +19,16 @@ public class Character : MonoBehaviour
 			m_tileChangedListeners -= method;
 	}
 
+	public void TakeDamage(float value)
+	{
+		if (m_elapsedTimeSinceLastHit <= m_invincibleTime)
+			return;
+		m_animator.SetBool("IsHurt", true);
+		GameManager.Instance.DecreaseTime(value);
+		m_elapsedTimeSinceLastHit = 0.0f;
+		StartCoroutine(FlickSprite());
+	}
+
 	#region Private
 
 	private void Awake()
@@ -49,24 +59,6 @@ public class Character : MonoBehaviour
 		m_elapsedTimeSinceLastHit += Time.fixedDeltaTime;
 	}
 
-	private void OnCollisionEnter2D(Collision2D collision)
-	{
-		if (collision.collider.tag == "Enemy")
-		{
-			Debug.Log("Player collide enemy");
-			TakeDamage(collision.gameObject.GetComponent<Enemy>().ContactDamage);
-		}
-	}
-
-	private void OnCollisionStay2D(Collision2D collision)
-	{
-		if (collision.collider.tag == "Enemy")
-		{
-			if (m_elapsedTimeSinceLastHit >= m_invincibleTime)
-				TakeDamage(collision.gameObject.GetComponent<Enemy>().ContactDamage);
-		}
-	}
-
 	private void UpdateCurrentTile()
 	{
 		Vector3Int newTile = new Vector3Int((int)transform.position.x, (int)transform.position.y, (int)transform.position.z);
@@ -75,14 +67,6 @@ public class Character : MonoBehaviour
 			m_tileChangedListeners?.Invoke(m_currentTile, newTile);
 			m_currentTile = newTile;
 		}
-	}
-
-	private void TakeDamage(float value)
-	{
-		m_animator.SetBool("IsHurt", true);
-		GameManager.Instance.DecreaseTime(value);
-		m_elapsedTimeSinceLastHit = 0.0f;
-		StartCoroutine(FlickSprite());
 	}
 
 	private IEnumerator FlickSprite()
@@ -104,17 +88,18 @@ public class Character : MonoBehaviour
 	{
 		int horizontalMove = 0;
 		int verticalMove = 0;
-		if (InputManager.Instance.Axis != Vector2.zero)
+		if (InputManager.Instance.RawAxis != Vector2.zero)
 		{
-			if (Mathf.Abs(InputManager.Instance.Axis.x) > Mathf.Abs(InputManager.Instance.Axis.y))
+			if (Mathf.Abs(InputManager.Instance.RawAxis.x) > Mathf.Abs(InputManager.Instance.RawAxis.y))
 			{
-				horizontalMove = InputManager.Instance.Axis.x > 0 ? 1 : -1;
+				horizontalMove = InputManager.Instance.RawAxis.x > 0 ? 1 : -1;
 			}
 			else
 			{
-				verticalMove = InputManager.Instance.Axis.y > 0 ? 1 : -1;
+				verticalMove = InputManager.Instance.RawAxis.y > 0 ? 1 : -1;
 			}
 		}
+		//m_spriteRenderer.flipX = horizontalMove == 1;
 		m_animator.SetInteger("MoveHorizontal", horizontalMove);
 		m_animator.SetInteger("MoveVertical", verticalMove);
 	}
@@ -127,6 +112,7 @@ public class Character : MonoBehaviour
 		{
 			shotHorizontal = (int)Mathf.Clamp(ShootManager.ShotDirection.x, -1, 1);
 			shotVertical = (int)Mathf.Clamp(ShootManager.ShotDirection.y, -1, 1);
+			//m_spriteRenderer.flipX = shotHorizontal == 1;
 		}
 		m_animator.SetBool("IsShooting", ShootManager.IsShooting);
 		m_animator.SetInteger("ShootHorizontal", shotHorizontal);

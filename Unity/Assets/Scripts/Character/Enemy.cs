@@ -5,6 +5,8 @@ public class Enemy : MonoBehaviour
 {
 	public float ContactDamage { get { return m_contactDamage; } }
 
+	public bool HasSpotPlayer { get; private set; }
+
 	public void TakeDamage(float damage)
 	{
 		m_life -= damage;
@@ -14,8 +16,7 @@ public class Enemy : MonoBehaviour
 
 	public void StopFollowingPlayer()
 	{
-		m_spotPlayer = false;
-		m_currentTarget = -1;
+		HasSpotPlayer = false;
 		UnregisterPlayerMovement();
 	}
 
@@ -23,14 +24,24 @@ public class Enemy : MonoBehaviour
 
 	private void Awake()
 	{
+		HasSpotPlayer = false;
+		m_splineWalker = GetComponent<SplineWalker>();
 		UpdateCurrentTile();
+	}
+
+	private void Update()
+	{
+		if (m_isCollidingPlayer)
+		{
+			Character.Instance.TakeDamage(m_contactDamage);
+		}
 	}
 
 	private void FixedUpdate()
 	{
-		if (m_spotPlayer)
+		if (HasSpotPlayer)
 		{
-			FollowPlayer();
+			UpdateCurrentTile();
 		}
 	}
 
@@ -47,36 +58,38 @@ public class Enemy : MonoBehaviour
 
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
-		if (collision.tag == "Player" && !m_spotPlayer)
+		if (collision.tag == "Player" && !HasSpotPlayer)
 		{
-			m_spotPlayer = true;
+			HasSpotPlayer = true;
 			m_characterToFllow = collision.gameObject.GetComponent<Character>();
 			m_characterToFllow.RegisterOnTileChange(OnCharacterTileChanged, true);
 			UpdatePath();
 		}
 	}
 
-	private void OnCharacterTileChanged(Vector3Int oldTile, Vector3Int newTile)
+	private void OnCollisionEnter2D(Collision2D collision)
 	{
-		UpdatePath(false);
+		if (collision.gameObject.tag == "Player")
+		{
+			Character.Instance.TakeDamage(m_contactDamage);
+			m_splineWalker.ShouldFollowSpline = false;
+			m_isCollidingPlayer = true;
+		}
 	}
 
-	private void FollowPlayer()
+	private void OnCollisionExit2D(Collision2D collision)
 	{
-		if (m_currentTarget != -1)
+		if (collision.gameObject.tag == "Player")
 		{
-			Vector3 direction = m_pathToPlayer[m_currentTarget] - transform.position;
-			if (direction.magnitude <= 0.1f)
-			{
-				m_currentTarget = m_currentTarget + 1 < m_pathToPlayer.Count ? m_currentTarget + 1 : -1;
-			}
-			if (m_currentTarget != -1)
-			{
-				direction = m_pathToPlayer[m_currentTarget] - transform.position;
-				transform.Translate(direction.normalized * m_speed * Time.fixedDeltaTime);
-				UpdateCurrentTile();
-			}
+			UpdatePath();
+			m_splineWalker.ShouldFollowSpline = true;
+			m_isCollidingPlayer = false;
 		}
+	}
+
+	private void OnCharacterTileChanged(Vector3Int oldTile, Vector3Int newTile)
+	{
+		UpdatePath();
 	}
 
 	private void UpdateCurrentTile()
@@ -89,39 +102,36 @@ public class Enemy : MonoBehaviour
 		}
 	}
 
-	private void UpdatePath(bool resetTarget = true)
+	private void UpdatePath()
 	{
 		if (m_characterToFllow != null)
 		{
-			m_pathToPlayer = GridTile.Instance.GetPath(transform.position, m_characterToFllow.transform.position);
-			if (resetTarget)
-				m_currentTarget = 0;
-		}
-	}
-
-	private void OnDrawGizmos()
-	{
-		if (m_pathToPlayer != null)
-		{
-			foreach (Vector3 pos in m_pathToPlayer)
+			List<Vector3> path = GridTile.Instance.GetPath(transform.position, m_characterToFllow.transform.position);
+			path.RemoveAt(0);
+			if (m_splineWalker.Spline == null)
 			{
-				Gizmos.DrawSphere(pos, 0.2f);
+				m_splineWalker.Spline = path.Count > 0 ? (SplineManager.Instance.GetBezierSpline(path)) : null;
+				m_splineWalker.Progress = 0.0f;
+				m_splineWalker.ShouldFollowSpline = true;
+			}
+			else if (path.Count > 0)
+			{
+				m_splineWalker.Spline.CreateCurve(path);
+				m_splineWalker.Progress = 0.0f;
+				m_splineWalker.ShouldFollowSpline = true;
 			}
 		}
 	}
 
 	[SerializeField]
-	private float m_speed = 1.0f;
-	[SerializeField]
 	private float m_life = 2.0f;
 	[SerializeField]
 	private float m_contactDamage = 1.0f;
 
-	private bool m_spotPlayer = false;
+	private SplineWalker m_splineWalker = null;
 	private Vector3Int m_currentTile;
 	private Character m_characterToFllow = null;
-	private List<Vector3> m_pathToPlayer = null;
-	private int m_currentTarget = 0;
+	private bool m_isCollidingPlayer = false;
 
 	#endregion Private
 }

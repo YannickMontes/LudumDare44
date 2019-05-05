@@ -92,6 +92,7 @@ public class GameManager : MonoBehaviour
 	private void GameOver()
 	{
 		InputManager.Instance.Enable = false;
+		m_decreaseTimer = false;
 		DisableEnemies();
 		UIManager.Instance.GameOver.gameObject.SetActive(true);
 	}
@@ -114,6 +115,7 @@ public class GameManager : MonoBehaviour
 				yield return null;
 			}
 		}
+		Character.Instance.transform.position = FindObjectOfType<MapStart>().transform.position;
 		InputManager.Instance.Enable = true;
 		m_timer = MAX_TIMER;
 		m_decreaseTimer = true;
