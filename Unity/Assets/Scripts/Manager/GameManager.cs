@@ -115,7 +115,7 @@ public class GameManager : MonoBehaviour
 				yield return null;
 			}
 		}
-		Character.Instance.transform.position = FindObjectOfType<MapStart>().transform.position;
+		LevelManager.Instance.Init();
 		InputManager.Instance.Enable = true;
 		m_timer = MAX_TIMER;
 		m_decreaseTimer = true;

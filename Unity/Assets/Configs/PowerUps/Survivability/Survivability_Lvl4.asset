@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: Survivability_Lvl4
   m_EditorClassIdentifier: 
   m_icon: {fileID: 21300014, guid: 90dd95275b186bc4681ac271d3c3f200, type: 3}
+  m_price: 60
   m_timerReductionFactor: 1
   m_reducedDamageFromEnemies: 0
