@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_icon: {fileID: 21300018, guid: 90dd95275b186bc4681ac271d3c3f200, type: 3}
   m_price: 20
+  m_nextLevel: {fileID: 11400000, guid: 6fb4de5bc8cd5b9419976f0497b838ab, type: 2}
   m_cooldownShot: 0.4

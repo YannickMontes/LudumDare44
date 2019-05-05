@@ -1,13 +1,15 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 [CreateAssetMenu(menuName = "Game/PowerUps/RateOfFire")]
 public class RateOfFirePowerUpConfig : PowerUpConfig
 {
 	public float CooldownShot { get { return m_cooldownShot; } }
+	public override Type PowerUpType { get { return typeof(RateOfFirePowerUp); } }
 
-	public override void Apply(Character character)
+	public override PowerUp CreatePowerUp()
 	{
-		character.ShootManager.AssignRateOfFirePowerUp(this);
+		return new RateOfFirePowerUp(this);
 	}
 
 	#region Private

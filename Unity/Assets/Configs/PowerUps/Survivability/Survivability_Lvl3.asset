@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_icon: {fileID: 21300012, guid: 90dd95275b186bc4681ac271d3c3f200, type: 3}
   m_price: 40
+  m_nextLevel: {fileID: 11400000, guid: 5652a43fee7b4a9428112f0f10224e1b, type: 2}
   m_timerReductionFactor: 1
   m_reducedDamageFromEnemies: 0

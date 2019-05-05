@@ -1,18 +1,20 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class PowerUp : MonoBehaviour
+﻿public abstract class PowerUp
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+	public PowerUpConfig Config { get { return m_config; } }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+	public PowerUp(PowerUpConfig config)
+	{
+		m_config = config;
+	}
+
+	public virtual void UpgradeConfig()
+	{
+		m_config = Config.NextLevel;
+	}
+
+	#region Private
+
+	private PowerUpConfig m_config = null;
+
+	#endregion Private
 }

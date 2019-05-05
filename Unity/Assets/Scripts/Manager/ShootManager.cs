@@ -3,20 +3,8 @@ using UnityEngine;
 
 public class ShootManager : MonoBehaviour
 {
-	public ShootTypePowerUpConfig ShotTypeConfig { get { return m_shotTypeConfig; } }
-	public RateOfFirePowerUpConfig RateOfFireConfig { get { return m_rateOfFireConfig; } }
 	public bool IsShooting { get { return m_isShooting; } }
 	public Vector2 ShotDirection { get { return m_shotDirection; } }
-
-	public void AssignShootTypePowerUp(ShootTypePowerUpConfig shootTypeConfig)
-	{
-		m_shotTypeConfig = shootTypeConfig;
-	}
-
-	public void AssignRateOfFirePowerUp(RateOfFirePowerUpConfig rateOfFireConfig)
-	{
-		m_rateOfFireConfig = rateOfFireConfig;
-	}
 
 	#region Private
 
@@ -28,6 +16,7 @@ public class ShootManager : MonoBehaviour
 	private void Start()
 	{
 		InputManager.Instance.RegisterOnShootInput(OnShootPressed, true);
+		RetrievePowerUps();
 	}
 
 	private void Update()
@@ -42,6 +31,12 @@ public class ShootManager : MonoBehaviour
 		InputManager.Instance.RegisterOnShootInput(OnShootPressed, false);
 	}
 
+	private void RetrievePowerUps()
+	{
+		m_shotTypeConfig = m_character.PowerUpManager.GetPowerUpConfig(typeof(ShootTypePowerUpConfig)) as ShootTypePowerUpConfig;
+		m_rateOfFirePowerUpConfig = m_character.PowerUpManager.GetPowerUpConfig(typeof(RateOfFirePowerUpConfig)) as RateOfFirePowerUpConfig;
+	}
+
 	private void OnShootPressed(bool shotPressed)
 	{
 		m_isShooting = shotPressed;
@@ -54,7 +49,7 @@ public class ShootManager : MonoBehaviour
 	{
 		if (m_shotTypeConfig is ClassicShootPowerUpConfig)
 		{
-			if (m_isShooting && m_lastShotElapsedTime >= m_rateOfFireConfig.CooldownShot)
+			if (m_isShooting && m_lastShotElapsedTime >= m_rateOfFirePowerUpConfig.CooldownShot)
 			{
 				Vector3 worldPoint = Camera.main.ScreenToWorldPoint(InputManager.Instance.MousePosition);
 				worldPoint.z = 0.0f;
@@ -126,10 +121,6 @@ public class ShootManager : MonoBehaviour
 
 	[Header("Shot Config")]
 	[SerializeField]
-	private ShootTypePowerUpConfig m_shotTypeConfig = null;
-	[SerializeField]
-	private RateOfFirePowerUpConfig m_rateOfFireConfig = null;
-	[SerializeField]
 	private GameObject m_projectile = null;
 
 	[Header("Emmiters Config")]
@@ -141,6 +132,8 @@ public class ShootManager : MonoBehaviour
 	private List<GameObject> m_emmiters = null;
 
 	private Character m_character = null;
+	private ShootTypePowerUpConfig m_shotTypeConfig = null;
+	private RateOfFirePowerUpConfig m_rateOfFirePowerUpConfig = null;
 	private float m_lastShotElapsedTime = float.MaxValue;
 	private bool m_isShooting = false;
 	private Vector2 m_shotDirection = Vector2.zero;

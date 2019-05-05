@@ -1,14 +1,16 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 [CreateAssetMenu(menuName = "Game/PowerUps/Survivability")]
 public class SurvivabilityPowerUpConfig : PowerUpConfig
 {
 	public float TimerReductionFactor { get { return m_timerReductionFactor; } }
 	public float ReducedDamageFromEnemies { get { return m_reducedDamageFromEnemies; } }
+	public override Type PowerUpType { get { return typeof(SurvivabilityPowerUp); } }
 
-	public override void Apply(Character character)
+	public override PowerUp CreatePowerUp()
 	{
-		character.SurvivabilityPowerUp = this;
+		return new SurvivabilityPowerUp(this);
 	}
 
 	#region Private

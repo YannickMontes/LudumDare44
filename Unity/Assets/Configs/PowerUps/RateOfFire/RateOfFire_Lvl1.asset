@@ -13,4 +13,6 @@ MonoBehaviour:
   m_Name: RateOfFire_Lvl1
   m_EditorClassIdentifier: 
   m_icon: {fileID: 21300016, guid: 90dd95275b186bc4681ac271d3c3f200, type: 3}
+  m_price: 0
+  m_nextLevel: {fileID: 11400000, guid: 657aa700839088244a26368ec9e39699, type: 2}
   m_cooldownShot: 0.5

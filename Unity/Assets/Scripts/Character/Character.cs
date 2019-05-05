@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using UnityEngine;
 
+[RequireComponent(typeof(ShootManager))]
+[RequireComponent(typeof(PowerUpManager))]
 public class Character : MonoBehaviour
 {
 	public delegate void OnTileChanged(Vector3Int oldTile, Vector3Int newTile);
@@ -9,7 +11,7 @@ public class Character : MonoBehaviour
 
 	public ShootManager ShootManager { get { return m_shootManager; } }
 
-	public SurvivabilityPowerUpConfig SurvivabilityPowerUp { get { return m_survivabilityPowerUpConfig; } set { m_survivabilityPowerUpConfig = value; } }
+	public PowerUpManager PowerUpManager { get { return m_powerUpManager; } }
 
 	public void RegisterOnTileChange(OnTileChanged method, bool register)
 	{
@@ -33,12 +35,14 @@ public class Character : MonoBehaviour
 
 	private void Awake()
 	{
-		m_shootManager = GetComponent<ShootManager>();
 		UpdateCurrentTile();
 		if (Instance == null)
 		{
 			Instance = this;
 			DontDestroyOnLoad(this);
+			m_shootManager = GetComponent<ShootManager>();
+			m_powerUpManager = GetComponent<PowerUpManager>();
+			m_powerUpManager.Init();
 		}
 		else
 		{
@@ -126,11 +130,10 @@ public class Character : MonoBehaviour
 	[SerializeField]
 	private SpriteRenderer m_spriteRenderer = null;
 	[SerializeField]
-	private SurvivabilityPowerUpConfig m_survivabilityPowerUpConfig = null;
-	[SerializeField]
 	private Animator m_animator = null;
 
-	private ShootManager m_shootManager;
+	private ShootManager m_shootManager = null;
+	private PowerUpManager m_powerUpManager = null;
 	private float m_elapsedTimeSinceLastHit = 0.0f;
 	private OnTileChanged m_tileChangedListeners = null;
 	private Vector3Int m_currentTile;
